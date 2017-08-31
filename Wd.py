@@ -3,13 +3,12 @@ import os
 os.system("cls") #czyszczenie
 import pandas as pd
 
-
 #kolumny ["Nazwa","Węgiel ","Wodor","Azot","Tlen","Siarka","Popioł","Woda","Chlor","Fosfor"]
 paliwa=pd.read_csv('paliwa.csv',)
     
 #Pętla dodawania paliw
-b = 't'
-while b == 't':
+tak = 't'
+while tak == 't':
     nazwa=input("Podaj nazwę paliwa "   )
     c=input("Zawartość węgla ")
     c=int(c)/100
@@ -34,15 +33,15 @@ while b == 't':
         print("Nie realny skład !!!")
         break
     #zaokrąglanie#
-    iwo=[c,h,n,o,s,a,w,cl,p]
-    for i, x in enumerate(iwo): 
+    sklad=[c,h,n,o,s,a,w,cl,p]
+    for i, x in enumerate(sklad): 
         iwo[i] = round(x, 3)
-    paliwa.loc[nazwa]=iwo
+    paliwa.loc[nazwa]=sklad
     #Wpisy do bazy danych
-    #bd=input("Dodać paliwo do bazy danych ? (t/n):") 
-    #if bd == 't' :
-    #   paliwa.to_csv('paliwa.csv')
-    b = input('Dodać inne paliwo? (t/n): ')
+    bd=input("Dodać paliwo do bazy danych ? (t/n):") 
+    if bd == 't' :
+       paliwa.to_csv('paliwa.csv')
+    czydodac = input('Dodać inne paliwo? (t/n): ')
         
 
 #Obliczanie wartosci opalowej
@@ -61,8 +60,8 @@ elif ktory == 4 :
 
     
 #Wyniki do Excela 
-b=input("Zapisać wyniki w arkuszu kalkulacyjnym ? (t/n):") 
-if b == 't' :
+tak=input("Zapisać wyniki w arkuszu kalkulacyjnym ? (t/n):") 
+if tak == 't' :
     writer = pd.ExcelWriter('Paliwa.xlsx')
     paliwa.to_excel(writer,'Baza paliw')
     writer.save()
